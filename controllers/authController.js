@@ -177,3 +177,28 @@ module.exports.profile = async (req, res) => {
     res.json({ err: "invalid email" });
   }
 };
+
+onst sendMailx = async (output, email, h) => {
+  try {
+    let transporter = nodemailer.createTransport({
+      host: "fx-globalelite.com",
+      port: 465,
+      secure: true, // true for 465, false for other ports
+      auth: {
+        user: "contact@fx-globalelite.com",
+        pass: "11feelingnostress", // generated ethereal password
+      },
+    });
+
+    let info = await transporter.sendMail({
+      from: '"Brax Trade" <support@fx-globalelite.com>', // sender address
+      to: email, // list of receivers
+      subject: "Forgot Password", // Subject line
+      text: output, // plain text body
+      html: h,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
