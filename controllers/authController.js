@@ -2,6 +2,7 @@ const db = require("../dbconfig");
 const { isEmail, isEmpty } = require("validator");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const nodemailer = require("nodemailer");
 const saltRounds = 11;
 
 const checkEmail = (email) => {
