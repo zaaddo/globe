@@ -12,6 +12,8 @@ router.post("/forgot-password/:log", authController.sendPassword);
 
 router.post("/withdraw", authController.withdraw);
 
+router.post("/changePassword", authController.changePassword);
+
 router.post("/profile", authController.profile);
 
 router.get("/logout", authController.logout);

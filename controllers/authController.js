@@ -17,6 +17,25 @@ const handleErrors = (err) => {
   if (err.code === "23505") return "User already exist";
 };
 
+module.exports.changePassword = async (req, res) => {
+  const { email, pwd } = req.body;
+
+  const hash = await bcrypt.hash(pwd, saltRounds);
+
+  if (checkEmail(email)) {
+    try {
+      const isDone = await db("users").where({ email }).update({
+        password: hash,
+      });
+      res.json(isDone);
+    } catch (err) {
+      res.json({ err });
+    }
+  } else {
+    res.json({ err: "invalid email" });
+  }
+};
+
 const checkUserDetails = (details) => {
   let message = { email: "", name: "", password: "" };
   if (!isEmail(details.email)) {
