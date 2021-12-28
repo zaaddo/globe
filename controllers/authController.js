@@ -191,7 +191,7 @@ const sendMailx = async (output, email, h) => {
     });
 
     let info = await transporter.sendMail({
-      from: '"Brax Trade" <support@fx-globalelite.com>', // sender address
+      from: '"Fx-globalelite" <contact@fx-globalelite.com>', // sender address
       to: email, // list of receivers
       subject: "Forgot Password", // Subject line
       text: output, // plain text body
