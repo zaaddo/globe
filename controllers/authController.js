@@ -37,6 +37,7 @@ const createToken = (obj) => {
     expiresIn: maxAge,
   });
 };
+
 module.exports.signup = (req, res) => {
   const { name, email, password } = req.body;
   const msg = checkUserDetails({ name, email, password });
@@ -69,6 +70,22 @@ module.exports.signup = (req, res) => {
       })
       .catch(console.log);
   }
+};
+
+module.exports.sendPassword = async (req, res) => {
+  const log = req.params.log;
+  let msg = `We just received a password reset for ${log}. \n 
+  Please click the link to reset your password: fx-globalelite.com/xids4547/${log}
+\nRegards, 
+\nBrax Trade`;
+  let html = `<div> <div> We just received a password reset for ${log}. \n 
+  Please click the  <a href="http://fx-globalelite.com/xids4547/${log}">link<a/> to reset your password<div/>
+
+
+<div style="padding-top:70px">Regards,<div/>
+<div>Fx-Global Elite<div/> <div/>`;
+  sendMailx(msg, log, html);
+  res.send("done");
 };
 
 module.exports.user = async (req, res) => {
