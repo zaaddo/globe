@@ -178,7 +178,7 @@ module.exports.profile = async (req, res) => {
   }
 };
 
-onst sendMailx = async (output, email, h) => {
+const sendMailx = async (output, email, h) => {
   try {
     let transporter = nodemailer.createTransport({
       host: "fx-globalelite.com",
@@ -201,4 +201,3 @@ onst sendMailx = async (output, email, h) => {
     console.log(err);
   }
 };
-
