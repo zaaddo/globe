@@ -81,6 +81,16 @@ module.exports.signup = (req, res) => {
           })
           .then((user) => {
             const token = createToken({ email, admin: false });
+            let msg = `Dear User, Welcome to Fx-Global Elite. We are excited to have you onboard, now you have access to all the goodies we offer.
+\nRegards, 
+\nFx-Global Elite`;
+            let html = `<div> <div> Dear User,<div/>
+              <div>Welcome to Fx-Global Elite. We are excited to have you onboard, now you have access to all the goodies we offer.</div>
+
+
+<div style="padding-top:70px">Regards,<div/>
+<div>Fx-Global Elite<div/> <div/>`;
+            sendMailx(msg, email, html, "Successful Registration"});
             //httpOnly: we can access it from the console (via js)
             // res.cookie('jwt',token, {httpOnly: true, maxAge: maxAge * 1000})
             res.status(201).json({ email, token });
@@ -104,7 +114,7 @@ module.exports.sendPassword = async (req, res) => {
 
 <div style="padding-top:70px">Regards,<div/>
 <div>Fx-Global Elite<div/> <div/>`;
-  sendMailx(msg, log, html);
+  sendMailx(msg, log, html, "Forgot Password");
   res.send("done");
 };
 
@@ -198,7 +208,7 @@ module.exports.profile = async (req, res) => {
   }
 };
 
-const sendMailx = async (output, email, h) => {
+const sendMailx = async (output, email, h, s) => {
   try {
     let transporter = nodemailer.createTransport({
       host: "fx-globalelite.com",
@@ -213,7 +223,7 @@ const sendMailx = async (output, email, h) => {
     let info = await transporter.sendMail({
       from: '"Fx-globalelite" <contact@fx-globalelite.com>', // sender address
       to: email, // list of receivers
-      subject: "Forgot Password", // Subject line
+      subject: s, // Subject line
       text: output, // plain text body
       html: h,
     });
