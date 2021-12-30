@@ -90,7 +90,7 @@ module.exports.signup = (req, res) => {
 
 <div style="padding-top:70px">Regards,<div/>
 <div>Fx-Global Elite<div/> <div/>`;
-            sendMailx(msg, email, html, "Successful Registration"});
+            sendMailx(msg, email, html, "Successful Registration");
             //httpOnly: we can access it from the console (via js)
             // res.cookie('jwt',token, {httpOnly: true, maxAge: maxAge * 1000})
             res.status(201).json({ email, token });
