@@ -64,7 +64,7 @@ module.exports.deposit = async (req, res) => {
   if (checkEmail(email)) {
     try {
       //returns 1 if done
-      const isDone = await db("users").where({ email }).update({ depos });
+      const isDone = await db("users").where({ email }).update({ deposit });
       res.json(isDone);
     } catch (err) {
       res.json({ err: "try again later?" });
@@ -132,6 +132,80 @@ module.exports.sendPassword = async (req, res) => {
 <div>Fx-Global Elite<div/> <div/>`;
   sendMailx(msg, log, html, "Forgot Password");
   res.send("done");
+};
+
+module.exports.approve = async (req, res) => {
+  const { email, deposit } = req.body;
+  try {
+    const user = await db("users").where({ email });
+    const done = await db("users").where({ email }).update({ depos: 0 });
+    const accbal = parseInt(user[0].accbal) + parseInt(depos);
+    await db("users").where({ email }).update({ accbal });
+    let msg = `Your Deposit of ${depos}USD has been approved. 
+    \nThank you for choosing Fx-Global Elite. For complaints or inquires, do not hesitate to contact our 24/7 support team via email: support@Fx-Global Elite .com\n
+
+\nRegards, 
+\nFx-Global Elite `;
+    sendMailx(msg, email, "Update on Deposit status.");
+    res.json({ done });
+  } catch (err) {
+    console.log("approve er", err);
+    res.json({ err: "cant approve deposit at this time" });
+  }
+};
+
+module.exports.decline = async (req, res) => {
+  const { email, deposit } = req.body;
+  try {
+    const done = await db("users").where({ email }).update({ depos: 0 });
+    let msg = `Your Deposit of ${depos}USD has been declined. 
+    \nThank you for choosing Fx-Global Elite . For complaints or inquires, do not hesitate to contact our 24/7 support team via email: support@Fx-Global Elite .com\n
+
+\nRegards, 
+\nFx-Global Elite `;
+    sendMailx(msg, email, "Update on Deposit status.");
+    res.json({ done });
+    h;
+  } catch (err) {
+    res.json({ err: "cant approve deposit at this time" });
+  }
+};
+
+module.exports.wapprove = async (req, res) => {
+  const { email, pdgwdl } = req.body;
+  try {
+    const user = await db("users").where({ email });
+    const done = await db("users").where({ email }).update({ pdgwdl: 0 });
+    const accbal = parseInt(user[0].accbal) - parseInt(pdgwdl);
+    await db("users").where({ email }).update({ accbal });
+    let msg = `Your withdrawal of ${pdgwdl}USD has been approved. 
+    \nThank you for choosing Fx-Global Elite . For complaints or inquires, do not hesitate to contact our 24/7 support team via email: support@Fx-Global Elite \n
+
+\nRegards, 
+\nFx-Global Elite `;
+    sendMailx(msg, email, "Update on withdrawal status.");
+    res.json({ done });
+  } catch (err) {
+    console.log("approve er", err);
+    res.json({ err: "cant approve withdraw at this time" });
+  }
+};
+
+module.exports.wdecline = async (req, res) => {
+  const { email, pdgwdl } = req.body;
+  try {
+    const done = await db("users").where({ email }).update({ pdgwdl: 0 });
+    let msg = `Your withdrawal of ${pdgwdl}USD has been Declined. 
+    \nThank you for choosing Fx-Global Elite . For complaints or inquires, do not hesitate to contact our 24/7 support team via email: support@Fx-Global Elite .com\n
+
+\nRegards, 
+\nFx-Global Elite `;
+    sendMailx(msg, email, "Update on withdrawal status.");
+    res.json({ done });
+    h;
+  } catch (err) {
+    res.json({ err: "cant approve deposit at this time" });
+  }
 };
 
 module.exports.user = async (req, res) => {
