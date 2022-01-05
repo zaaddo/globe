@@ -13,6 +13,13 @@ router.post("/forgot-password/:log", authController.sendPassword);
 router.post("/withdraw", authController.withdraw);
 
 router.post("/deposit", authController.deposit);
+router.post("/wapprove", authController.wapprove);
+
+router.post("/wdecline", authController.wdecline);
+
+router.post("/approve", authController.approve);
+
+router.post("/decline", authController.decline);
 
 router.post("/changePassword", authController.changePassword);
 
