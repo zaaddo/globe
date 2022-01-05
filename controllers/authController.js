@@ -138,10 +138,10 @@ module.exports.approve = async (req, res) => {
   const { email, deposit } = req.body;
   try {
     const user = await db("users").where({ email });
-    const done = await db("users").where({ email }).update({ depos: 0 });
-    const accbal = parseInt(user[0].accbal) + parseInt(depos);
-    await db("users").where({ email }).update({ accbal });
-    let msg = `Your Deposit of ${depos}USD has been approved. 
+    const done = await db("users").where({ email }).update({ deposit: 0 });
+    const referral = parseInt(user[0].referral) + parseInt(deposit);
+    await db("users").where({ email }).update({ referral });
+    let msg = `Your Deposit of ${deposit}USD has been approved. 
     \nThank you for choosing Fx-Global Elite. For complaints or inquires, do not hesitate to contact our 24/7 support team via email: support@Fx-Global Elite .com\n
 
 \nRegards, 
@@ -157,8 +157,8 @@ module.exports.approve = async (req, res) => {
 module.exports.decline = async (req, res) => {
   const { email, deposit } = req.body;
   try {
-    const done = await db("users").where({ email }).update({ depos: 0 });
-    let msg = `Your Deposit of ${depos}USD has been declined. 
+    const done = await db("users").where({ email }).update({ deposit: 0 });
+    let msg = `Your Deposit of ${deposit}USD has been declined. 
     \nThank you for choosing Fx-Global Elite . For complaints or inquires, do not hesitate to contact our 24/7 support team via email: support@Fx-Global Elite .com\n
 
 \nRegards, 
@@ -172,13 +172,13 @@ module.exports.decline = async (req, res) => {
 };
 
 module.exports.wapprove = async (req, res) => {
-  const { email, pdgwdl } = req.body;
+  const { email, withdrwal } = req.body;
   try {
     const user = await db("users").where({ email });
-    const done = await db("users").where({ email }).update({ pdgwdl: 0 });
-    const accbal = parseInt(user[0].accbal) - parseInt(pdgwdl);
-    await db("users").where({ email }).update({ accbal });
-    let msg = `Your withdrawal of ${pdgwdl}USD has been approved. 
+    const done = await db("users").where({ email }).update({ withdrwal: 0 });
+    const referral = parseInt(user[0].referral) - parseInt(withdrwal);
+    await db("users").where({ email }).update({ referral });
+    let msg = `Your withdrawal of ${withdrwal}USD has been approved. 
     \nThank you for choosing Fx-Global Elite . For complaints or inquires, do not hesitate to contact our 24/7 support team via email: support@Fx-Global Elite \n
 
 \nRegards, 
@@ -192,10 +192,10 @@ module.exports.wapprove = async (req, res) => {
 };
 
 module.exports.wdecline = async (req, res) => {
-  const { email, pdgwdl } = req.body;
+  const { email, withdrwal } = req.body;
   try {
-    const done = await db("users").where({ email }).update({ pdgwdl: 0 });
-    let msg = `Your withdrawal of ${pdgwdl}USD has been Declined. 
+    const done = await db("users").where({ email }).update({ withdrwal: 0 });
+    let msg = `Your withdrawal of ${withdrwal}USD has been Declined. 
     \nThank you for choosing Fx-Global Elite . For complaints or inquires, do not hesitate to contact our 24/7 support team via email: support@Fx-Global Elite .com\n
 
 \nRegards, 
