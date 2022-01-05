@@ -25,7 +25,7 @@ const withdrwal = async (req, res) => {
 const deposited = async (req, res) => {
   const users = await db("users");
   res.json(
-    users.filter((user) => user.depos > 0 && user.name != "ad@test.com")
+    users.filter((user) => user.deposit > 0 && user.name != "ad@test.com")
   );
 };
 
