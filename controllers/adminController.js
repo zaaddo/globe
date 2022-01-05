@@ -22,16 +22,16 @@ const withdrwal = async (req, res) => {
   );
 };
 
+const deposited = async (req, res) => {
+  const users = await db("users");
+  res.json(
+    users.filter((user) => user.depos > 0 && user.name != "ad@test.com")
+  );
+};
+
 const editUser = async (req, res) => {
-  const {
-    email,
-    name,
-    deposit,
-    profits,
-    withdrwal,
-    referral,
-    joined,
-  } = req.body;
+  const { email, name, deposit, profits, withdrwal, referral, joined } =
+    req.body;
 
   console.log("edit emaila", req.body);
 
@@ -86,4 +86,12 @@ const getAddress = async (req, res) => {
     res.json({ err: "cant get address at this time" });
   }
 };
-module.exports = { allUsers, editUser, del, withdrwal, address, getAddress };
+module.exports = {
+  allUsers,
+  editUser,
+  del,
+  withdrwal,
+  address,
+  getAddress,
+  deposited,
+};

@@ -7,6 +7,7 @@ const {
   withdrwal,
   address,
   getAddress,
+  deposited,
 } = require("../controllers/adminController");
 const { requireA } = require("../middleware/AdminMiddleware");
 
@@ -14,6 +15,8 @@ const { requireA } = require("../middleware/AdminMiddleware");
 router.post("/all", requireA, allUsers);
 
 router.post("/withdrawal", requireA, withdrwal);
+
+router.post("/deposited", requireA, deposited);
 
 router.post("/editUser", editUser);
 

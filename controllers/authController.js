@@ -58,6 +58,22 @@ const createToken = (obj) => {
   });
 };
 
+module.exports.deposit = async (req, res) => {
+  const { email, deposit } = req.body;
+
+  if (checkEmail(email)) {
+    try {
+      //returns 1 if done
+      const isDone = await db("users").where({ email }).update({ depos });
+      res.json(isDone);
+    } catch (err) {
+      res.json({ err: "try again later?" });
+    }
+  } else {
+    res.json({ err: "invalid email" });
+  }
+};
+
 module.exports.signup = (req, res) => {
   const { name, email, password } = req.body;
   const msg = checkUserDetails({ name, email, password });
