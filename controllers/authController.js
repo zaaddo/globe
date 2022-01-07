@@ -248,13 +248,13 @@ module.exports.login = (req, res) => {
             name: user[0].name,
             email: user[0].email,
             admin: user[0].admin,
-            deposit,
-            admin,
-            profits,
-            withdrwal,
-            referral,
-            address,
-            phone,
+            deposit: user[0].deposit,
+            admin: user[0].admin,
+            profits: user[0].profits,
+            withdrwal: user[0].withdrwal,
+            referral: user[0].referral,
+            address: user[0].address,
+            phone: user[0].phone,
           };
           if (match) {
             const token = createToken({
