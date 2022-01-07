@@ -211,8 +211,19 @@ module.exports.wdecline = async (req, res) => {
 module.exports.user = async (req, res) => {
   const { email } = req.body;
   const userz = await db.select("*").from("users").where({ email });
-  const { name, deposit, admin, profits, withdrwal, referral } = userz[0];
-  const user = { name, email, deposit, admin, profits, withdrwal, referral };
+  const { name, deposit, admin, profits, withdrwal, referral, address, phone } =
+    userz[0];
+  const user = {
+    name,
+    email,
+    deposit,
+    admin,
+    profits,
+    withdrwal,
+    referral,
+    address,
+    phone,
+  };
   res.json(user);
 };
 
@@ -247,7 +258,7 @@ module.exports.login = (req, res) => {
             res.status(201).json({ token, email, admin: user[0].admin });
             //create a jwt and send that as response in a cookie
           } else {
-            res.status(400).json({ error: "Incorect email or password" });
+            res.status(400).json({ error: "Incorrect email or password" });
           }
         }
       })
@@ -281,14 +292,14 @@ module.exports.withdraw = async (req, res) => {
 };
 
 module.exports.profile = async (req, res) => {
-  const { email, name, phone, location } = req.body;
+  const { email, name, phone, address } = req.body;
 
   if (checkEmail(email)) {
     try {
       //returns 1 if done
       const isDone = await db("users")
         .where({ email })
-        .update({ name, phone, location });
+        .update({ name, phone, address });
       res.json(isDone);
     } catch (err) {
       res.json({ err: "try again later?" });
