@@ -248,6 +248,13 @@ module.exports.login = (req, res) => {
             name: user[0].name,
             email: user[0].email,
             admin: user[0].admin,
+            deposit,
+            admin,
+            profits,
+            withdrwal,
+            referral,
+            address,
+            phone,
           };
           if (match) {
             const token = createToken({
@@ -255,7 +262,7 @@ module.exports.login = (req, res) => {
               admin: user[0].admin,
             });
             // res.cookie('jwt',token, {httpOnly: true, maxAge: maxAge * 1000})
-            res.status(201).json({ token, email, admin: user[0].admin });
+            res.status(201).json({ token, ...userObj });
             //create a jwt and send that as response in a cookie
           } else {
             res.status(400).json({ error: "Incorrect email or password" });
