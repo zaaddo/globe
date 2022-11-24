@@ -324,7 +324,7 @@ const sendMailx = async (output, email, h, s) => {
       secure: true, // true for 465, false for other ports
       auth: {
         user: "contact@fx-globalelite.com",
-        pass: "11feelingnostress", // generated ethereal password
+        pass: "Loudgoes$1", // generated ethereal password
       },
     });
 
